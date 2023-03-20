@@ -12,7 +12,7 @@
         android:theme="@style/Theme.BlogExprorer"
         tools:targetApi="31">
         <activity android:name="com.aditya.blogexplorer.DetailActivity" />
-
+        <activity android:name=".edit.EditActivity"/>
         <activity android:name="com.aditya.blogexplorer.MainActivity"
            android:exported="true">
             <intent-filter>

@@ -16,6 +16,7 @@ import com.aditya.blogexplorer.databinding.ActivityDetailBinding
 
 const val EXTRA_POST = "EXTRA_POST"
 private const val TAG = "DetailActivity"
+
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var viewModel: DetailViewModel
@@ -59,7 +60,7 @@ class DetailActivity : AppCompatActivity() {
             viewModel.post.observe(this, Observer { post ->
                 val intent = Intent(this, EditActivity::class.java)
                 intent.putExtra(EXTRA_POST, post)
-//                startActivity(intent)
+                startActivity(intent)
             })
         }
         return super.onOptionsItemSelected(item)
