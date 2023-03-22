@@ -5,10 +5,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.aditya.blogexplorer.EXTRA_POST
+import com.aditya.blogexplorer.MainActivity
 import com.aditya.blogexplorer.R
 import com.aditya.blogexplorer.databinding.ActivityEditBinding
 import com.aditya.blogexplorer.models.Post
@@ -62,9 +64,27 @@ class EditActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.error.observe(this, Observer {error->
+            if (error==null){
+                return@Observer
+            }
+            Toast.makeText(this,error.toString(),Toast.LENGTH_LONG).show()
+        })
+
+        viewModel.deleteStatus.observe(this, Observer {wasDeleted->
+        if (wasDeleted){
+            Toast.makeText(this, "Deletion Successful ", Toast.LENGTH_LONG).show()
+            startActivity(Intent(this,MainActivity::class.java))
+        }
+        })
+
         binding.btnUpdatePut.setOnClickListener {
             Log.i(TAG, "Update Via Put")
             viewModel.updatePost(post.id,Post(post.userId,post.id,binding.etTitle.text.toString() ,binding.etContent.text.toString()))
+        }
+        binding.btnDelete.setOnClickListener {
+            viewModel.deletePost(post.id)
+            binding.clPostResult.visibility = View.GONE
         }
 
     }

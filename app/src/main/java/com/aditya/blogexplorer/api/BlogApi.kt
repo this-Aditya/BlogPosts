@@ -2,11 +2,7 @@ package com.aditya.blogexplorer.api
 
 import com.aditya.blogexplorer.models.Post
 import com.aditya.blogexplorer.models.User
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PUT
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 interface BlogApi {
@@ -30,4 +26,9 @@ interface BlogApi {
     suspend fun updatePost(
         @Path("id") id: Int, @Body post: Post
     ): Post
+    //deleting the post
+    @DELETE("posts/{id}")
+    suspend fun deletePost(
+        @Path("id") postId: Int
+    )
 }
