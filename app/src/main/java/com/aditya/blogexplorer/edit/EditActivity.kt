@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.aditya.blogexplorer.EXTRA_POST
+import com.aditya.blogexplorer.MainActivity
 import com.aditya.blogexplorer.R
 import com.aditya.blogexplorer.databinding.ActivityEditBinding
 import com.aditya.blogexplorer.models.Post
@@ -68,6 +69,13 @@ class EditActivity : AppCompatActivity() {
                 return@Observer
             }
             Toast.makeText(this,error.toString(),Toast.LENGTH_LONG).show()
+        })
+
+        viewModel.deleteStatus.observe(this, Observer {wasDeleted->
+        if (wasDeleted){
+            Toast.makeText(this, "Deletion Successful ", Toast.LENGTH_LONG).show()
+            startActivity(Intent(this,MainActivity::class.java))
+        }
         })
 
         binding.btnUpdatePut.setOnClickListener {
