@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         // Set up the RecyclerView
-        blogPostAdapter = BlogPostAdapter(this, blogPosts,
+        blogPostAdapter = BlogPostAdapter( blogPosts,
             object:BlogPostAdapter.ItemClickedListener{
                 override fun onItemClicked(post: Post) {
                     val intent = Intent(this@MainActivity,DetailActivity::class.java)
