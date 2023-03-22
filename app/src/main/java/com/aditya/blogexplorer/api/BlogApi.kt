@@ -2,6 +2,11 @@ package com.aditya.blogexplorer.api
 
 import com.aditya.blogexplorer.models.Post
 import com.aditya.blogexplorer.models.User
+<<<<<<< Updated upstream
+=======
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+>>>>>>> Stashed changes
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -23,4 +28,13 @@ interface BlogApi {
     suspend fun getUser(
         @Path("userId") Uid: Int
     ): User
+<<<<<<< Updated upstream
+=======
+
+    //updating the data using put method
+    @PUT("posts/{id}")
+    suspend fun updatePost(
+        @Path("id") id: Int, @Body post: Post
+    ): Post
+>>>>>>> Stashed changes
 }

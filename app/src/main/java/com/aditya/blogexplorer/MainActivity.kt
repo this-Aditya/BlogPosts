@@ -3,6 +3,7 @@ package com.aditya.blogexplorer
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         // Set up the RecyclerView
-        blogPostAdapter = BlogPostAdapter(this, blogPosts,
+        blogPostAdapter = BlogPostAdapter( blogPosts,
             object:BlogPostAdapter.ItemClickedListener{
                 override fun onItemClicked(post: Post) {
                     val intent = Intent(this@MainActivity,DetailActivity::class.java)
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             else{
                 binding.tvError.visibility = View.VISIBLE
                 Toast.makeText(this,error,Toast.LENGTH_LONG).show()
+                Log.i(TAG, "onCreate: $error")
             }
         })
 
