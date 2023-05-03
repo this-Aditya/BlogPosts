@@ -27,6 +27,7 @@ class BlogPostAdapter(private val posts: List<Post>, private val itemClicked: It
         itemView = ItemBlogPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemView)
     }
+    //test //
 
     override fun getItemCount() = posts.size
 
