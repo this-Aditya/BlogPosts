@@ -1,16 +1,20 @@
 package com.aditya.blogexplorer
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aditya.blogexplorer.models.Post
 import com.aditya.blogexplorer.databinding.ActivityMainBinding
+import kotlin.system.exitProcess
 
 private const val TAG = "MainActivity"
 const val EXTRA_ID = "GET_ID"
@@ -69,6 +73,24 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             viewModel.getposts()
         }
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                AlertDialog.Builder(this@MainActivity)
+                    .setTitle("Are you sure want to quit?")
+                    .setMessage("Your current progress will be lost. Click yes if you are sure for quitting, else press no. Thanks!")
+                    .setPositiveButton("Yes"){ _, _ ->
+                        val intent = Intent(Intent.ACTION_MAIN)
+                        intent.addCategory(Intent.CATEGORY_HOME)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        exitProcess(0)
+                    }
+                    .setNegativeButton("No") {dialogue,_ ->
+                        dialogue.dismiss()
+                    }.show()
+            }
+        }
+        onBackPressedDispatcher.addCallback(this@MainActivity, callback)
     }
 
     override fun onPause() {
